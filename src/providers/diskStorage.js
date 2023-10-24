@@ -26,4 +26,4 @@ class DiskStorage {
     }
 }
 
-module.exports = DiskStorage
+module.exports = DiskStorage;
