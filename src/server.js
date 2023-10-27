@@ -5,7 +5,7 @@ const migrationsRun = require("./database/sqlite/migrations");
 const uploadConfig = require("./configs/upload");
 const cors = require("cors");
 
-const appError = require("./utils/appError");
+const appError = require("./utils/AppError");
 const express = require("express");
 
 const routes = require("./routes");

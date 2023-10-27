@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
-const NotesController = require("../controllers/notescontroller");
+const NotesController = require("../controllers/NotesController");
 
 const notesRoutes = Router();
 
