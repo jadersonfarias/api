@@ -5,7 +5,7 @@ const migrationsRun = require("./database/sqlite/migrations");
 const uploadConfig = require("./configs/upload");
 const cors = require("cors");
 
-const appError = require("./utils/AppError");
+const AppError = require("./utils/AppError");
 const express = require("express");
 
 const routes = require("./routes");
@@ -20,7 +20,7 @@ app.use(routes);
 app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER));
 
 app.use((error, request, response, next) => {
-  if (error instanceof appError) {
+  if (error instanceof AppError) {
     //lado do cliente
     return response.status(error.statuscode).json({
       status: "error",

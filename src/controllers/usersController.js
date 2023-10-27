@@ -1,4 +1,4 @@
-const appError = require("../utils/AppError");
+const AppError = require("../utils/AppError");
 
 const { hash, compare } = require("bcryptjs");
 
@@ -14,7 +14,7 @@ class usersController {
       [email]
     );
     if (checkUserExist) {
-      throw new appError("este e-mail está em uso.");
+      throw new AppError("este e-mail está em uso.");
     }
 
     const hashdpassword = await hash(password, 8);
@@ -38,7 +38,7 @@ class usersController {
       `SELECT * FROM users WHERE id = ${user_id}`
     );
     if (!user) {
-      throw new appError("usuario não encontrado");
+      throw new AppError("usuario não encontrado");
     }
 
     const userWithUpdatedEmail = await database.get(
@@ -47,14 +47,14 @@ class usersController {
     );
 
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user.id) {
-      throw new appError("Este e-mail já está em uso.");
+      throw new AppError("Este e-mail já está em uso.");
     }
 
     if (password && old_password) {
       const checkOldPassword = await compare(old_password, user.password);
 
       if (!checkOldPassword) {
-        throw new appError("a senha antiga não confere.");
+        throw new AppError("a senha antiga não confere.");
       }
 
       user.password = await hash(password, 8);
@@ -64,7 +64,7 @@ class usersController {
     user.email = email ?? user.email;
 
     if (password && !old_password) {
-      throw new appError("você precisa digitar a nova senha");
+      throw new AppError("você precisa digitar a nova senha");
     }
 
     await database.run(
@@ -86,7 +86,7 @@ module.exports = usersController;
 
 /*
       if(!name){
-        throw new appError('nome é obrigatorio')
+        throw new AppError('nome é obrigatorio')
       }
 
         response.status(201).json({name, email,  password });
