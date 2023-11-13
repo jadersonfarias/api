@@ -6,12 +6,12 @@
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "dev": "nodemon ./src/server.js",
-    "migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest",
+    "test": "jest --watch"
   },
   "author": "jaderson farias",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.5.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -25,6 +25,7 @@
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^2.0.22"
   }
 }

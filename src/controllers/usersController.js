@@ -3,26 +3,35 @@ const AppError = require("../utils/AppError");
 const { hash, compare } = require("bcryptjs");
 
 const sqliteConnection = require("../database/sqlite");
+const UserRepository = require("../repositories/UserRepository")
+const UserCreateService = require("../services/UserCreateService");
+
 
 class usersController {
   async create(request, response) {
     const { name, email, password } = request.body;
+    const userRepository = new UserRepository();//aki fica toda a lógica de cadastrar user 
+    const userCreateService = new UserCreateService(userRepository)
 
-    const database = await sqliteConnection();
-    const checkUserExist = await database.get(
-      "SELECT * FROM users WHERE email = (?)",
-      [email]
-    );
-    if (checkUserExist) {
-      throw new AppError("este e-mail está em uso.");
-    }
+    await userCreateService.execute({name, email, password}); //passa para class as dependencias
 
-    const hashdpassword = await hash(password, 8);
+    // const database = await sqliteConnection();
 
-    await database.run(
-      "INSERT  INTO users (name, email, password) VALUES (?, ?, ?)",
-      [name, email, hashdpassword]
-    );
+    // const checkUserExist = await userRepository.findByEmail(email)    //await database.get( "SELECT * FROM users WHERE email = (?)",  [email]); está parte foi lá para o repositories
+    
+    // if (checkUserExist) {
+    //   throw new AppError("este e-mail está em uso.");
+    // }
+
+    // const hashdpassword = await hash(password, 8);
+
+    
+    // await database.run( foi para repositories
+    //   "INSERT  INTO users (name, email, password) VALUES (?, ?, ?)",
+    //   [name, email, hashdpassword]
+    // );
+
+    // await userRepository.create({name, email, password: hashdpassword})
 
     return response.status(201).json();
   }
