@@ -7,7 +7,7 @@ const UserRepository = require("../repositories/UserRepository")
 const UserCreateService = require("../services/UserCreateService");
 
 
-class usersController {
+class UsersController {
   async create(request, response) {
     const { name, email, password } = request.body;
     const userRepository = new UserRepository();//aki fica toda a lógica de cadastrar user 
@@ -91,7 +91,7 @@ class usersController {
   }
 }
 
-module.exports = usersController;
+module.exports = UsersController;
 
 /*
       if(!name){
